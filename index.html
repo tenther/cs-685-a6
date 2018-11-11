@@ -14,36 +14,108 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
       <h1>CS 685 &mdash; Assignment 5. Paul McKerley</h1>
+      <p>I first wanted to caveat this by saying I looked at many OpenCV tutorial pages for example of how to do things. 
       <ol>
 	<li> 
 	  <ol type="a">
-	    <li><p>The two images below show the Harris corners on the
-	    original picture and the rotated one. It appears that the
-	    corners are rotated with the image. However, the
-	    correspondance is not perfect. If one looks carefully at
-	    the windows one can see that there are discprepancies in
-	    the number of red dots on each window.</p>
-	      <div class="container">
-		<div class="row">
-		  <div class="col-sm">
-		    <img src="house1-harris.png" width="640" height="480"/>
-		  </div>
-		  <div class="col-sm">
-		    <img src="house1-rotated-harris.png" width="640" height="480"/>
-		  </div>
-		</div>
-	      </div>
+	    <li>	      
+		<p>The two images below show the Harris corners on the original picture
+	    and the rotated one. It appears that the corners are
+	    rotated with the image. This is especially apparent in the
+	    windows, along the roofline, on the roof itself, and in
+	    the two roughly parallel lines of corner on the left hand
+	    side of the first image. However, the correspondance is
+	    not perfect. If one looks carefully at the windows one can
+	    see that there are discprepancies in the number of red
+	    dots on each window.</p>
+		<img src="house1-harris.png" width="640" height="480"/>
+		<img src="house1-rotated-harris.png" width="640" height="480"/>
 	    </li>
+	    <p><a href="harris.py">Here is the code I used</a> to
+	    create these images. Note that I used a threshold of 0.2
+	    for which corners to keep, to cut down on the visual noise
+	    in the images. This may account somewhat for the small
+	    discrpancies noted in the previous two images.
 	    <li>
+	      <p>I didn't find the image house1-4down.jpg in the code
+	      directory, so I created one using the ImageMagick
+	      command: <pre>"convert -scale 320x240 house1.jpg house1-4down.jpg"</pre>
+	      </p>
+	      <p>Here are comparisons between the scaled versions of
+	      house1.jpg. The same corners are represented in each
+	      pair of images. Again, there are small discrepancies,
+		which might be related to the use of a the threshold.
+	      </p>
+	      <p>
+		<img src="house1-harris.png" width="640" height="480"/>
+		<img src="house1-2down-harris.png" width="320" height="240"/>
+	      </p>
+	      <p>
+		<img src="house1-harris.png" width="640" height="480"/>
+		<img src="house1-4down-harris.png" width="160" height="120"/>
+	      </p>
             </li>
 	  </ol>
 	</li>
 	<li>
 	  <p>
+	    I used <a href="ssd_harris.py">this Python program</a> to
+	    use SSD to match the corner features in house1.jpg and
+	    house2.jpg. It basically finds all the corners in each
+	    image and does a brute force full comparison of SSD
+	    patches around all the corners in the first image with
+	    those in the second. I again used a threshold for setting
+	    a maximum SSD value I would accept for a match. This
+	    varied on the size of the SSD patch I used. In this case,
+	    I used a patch-size of 31. The first image is with a
+	    higher threshold, and lots of spurious match. The second
+	    image has a tighter threshold, and gets rid of a lot of
+	    the bad matches.
+	  </p>
+	  <p>
+		<img src="house-1-2.png" width="1280" height="480"/>
+	  </p>
+	  <p>
+		<img src="house-1-2-uncluttered.png" width="1280" height="480"/>
 	  </p>
 	</li>
-	<li><p>
-	  </p>
+	<li>
+	  <p> I used <a href="sift_matching.py">this code</a> to
+	    make SIFT comparisons between the pairs of images. I also
+	    used a threshold to filter on the match distance.
+	  <p>
+	    <ol type="a">
+	      <li><p>Here are two versions on comparing house1.jpg and
+		  house2.jpg; the first has a higher threshold than
+		  the second.
+		</p>
+		<p>
+		  <img src="house1_house2_sift_match_100.0.png" width="1280" height="480"/>
+		  <img src="house1_house2_sift_match_40.0.png" width="1280" height="480"/>
+		</p>
+	      </li>
+	      <li><p>This matches house1.jpg with house1-rotated.jpg.</p>
+		<p>
+		  <img src="house1_house1-rotated_sift_match_200.0.png" width="1120" height="640"/>
+		</p>
+	      </li>
+	      <li><p>This matches house1.jpg with house1-2down.jpg.</p>
+		<p>
+		  <img src="house1_house1-2down_sift_match_100.0.png" width="960" height="480"/>
+		</p>
+	      </li>
+	      <li><p>This matches house1.jpg with house1-4down.jpg.</p>
+		<p>
+		  <img src="house1_house1-4down_sift_match_100.0.png" width="800" height="640"/>
+		</p>
+	      </li>
+	    </ol>
+	</li>
+	<li>
+	  <ol type="a">
+	    <li></li>
+	    <li></li>
+	  </ol>
 	</li>
       </ol>
   </body>

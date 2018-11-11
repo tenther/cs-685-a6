@@ -5,7 +5,7 @@ import sys
 import pdb
 
 def main():
-    ssd_threshold = 2000000
+    ssd_threshold = 10000000
     ssd_width = 31
 
     image_filenames = ['house1.jpg', 'house2.jpg']
