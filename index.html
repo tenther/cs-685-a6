@@ -113,8 +113,60 @@
 	</li>
 	<li>
 	  <ol type="a">
-	    <li></li>
-	    <li></li>
+	    <li><p>In SIFT the image is rescaled into several octaves
+	    (4 in the original SIFT algorith.) The within each octave
+	    the images are progressively blurred with a Gaussian (5
+	    images in original SIFT.) Then the difference of Gaussians
+	    is calculated between each adjacent image in each
+	    octave. These are searched for local mimima and maxima,
+	    which indicate the presence of interesting features. These
+	    are the potential keypoints. They are found by comparing a
+	    pixel with its 9 neighbors and with the equivalient pixels
+	    in different scales.</p>
+	      <p>
+		A Taylor expansion is applied to each potential
+		keypoint. Those without sufficient contrast are
+		discarded. A Hessian matrix is used to find edge
+		keypoints, which are discarded.
+	      </p>
+	      <p>
+		The neighborhood around each keypoint is examined to
+		find a gradient orientation and magnitude. This is
+		stored in a 36-bin orientation histogram.
+	      </p>
+	      <p>
+		The descriptors are created by taking a 16x16 area
+		around the keypoint, dividing it into 4 sub-areas,
+		each of gets an orientation histogram with 8 bins. 
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The SIFT algorithm appears to produce a much higher
+		percentage of quality matches than the Harris corner
+		detector does with SSD feature matching. When you
+		change the thresholds to be more permissive, the
+		Harris detector starts to get a lot of spurious match
+		quite quickly, while the vast majority of the SIFT
+		matches still appear to be high quaulity. The Harris
+		corner algorithm really does seem to do best on
+		visiblie corners, while SIFT finds features spread
+		throughout the images that are not corners, and
+		matches them accurately.</p>
+	      <p>One advantage of the Harris
+		matcher is that it is faster--ssd_harris.py runs on
+		house1.jpg and house2.jpg in ~2 seconds, while
+		sift_matching.py runs on the same two images in about
+		6 seconds.
+	      </p>
+	      <p>
+	      SIFT also seems to respond very well to comparing images
+		of differing scales and also rotated (and, I think
+		flipped) house1-rotated.jpg image. When looking
+		closely at the 1/4 size image, you can see that Harris
+		loses a lot more features, while SIFT does not.
+		</p>
+	    </li>
 	  </ol>
 	</li>
       </ol>
